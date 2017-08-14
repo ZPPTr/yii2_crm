@@ -164,9 +164,9 @@ $bundle = BackendAsset::register($this);
                         'options' => ['class' => 'header']
                     ],
                     [
-                        'label' => Yii::t('backend', 'Users'),
+                        'label' => Yii::t('backend', 'Клиенты'),
                         'icon' => '<i class="fa fa-users"></i>',
-                        'url' => ['/user/index'],
+                        'url' => ['/users/index'],
                         'visible' => Yii::$app->user->can('administrator')
                     ],
                     [
