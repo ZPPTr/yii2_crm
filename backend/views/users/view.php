@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						'address',
 						//'address_cor',
 
-						'photo',
+						//'photo',
 						//'photo_thumb',
 						'date_time',
 						//'prolongation_at',
