@@ -170,4 +170,13 @@ class Users extends \yii\db\ActiveRecord
 			->where('is_certificate = 0')
 			->orderBy('end_time DESC');
 	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getUserQuests()
+	{
+		return $this->hasMany(QuestResult::className(), ['user_id' => 'id'])
+			->where('is_certificate = 0');
+	}
 }

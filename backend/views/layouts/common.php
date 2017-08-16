@@ -159,16 +159,22 @@ $bundle = BackendAsset::register($this);
                             ['label' => Yii::t('backend', 'Carousel Widgets'), 'url' => ['/widget-carousel/index'], 'icon' => '<i class="fa fa-angle-double-right"></i>'],
                         ]
                     ],
-                    [
-                        'label' => Yii::t('backend', 'System'),
-                        'options' => ['class' => 'header']
-                    ],
-                    [
-                        'label' => Yii::t('backend', 'Клиенты'),
-                        'icon' => '<i class="fa fa-users"></i>',
-                        'url' => ['/users/index'],
-                        'visible' => Yii::$app->user->can('administrator')
-                    ],
+					[
+						'label' => Yii::t('backend', 'Клиенты'),
+						'icon' => '<i class="fa fa-users"></i>',
+						'url' => ['/users/index'],
+						'visible' => Yii::$app->user->can('administrator')
+					],
+					[
+						'label' => Yii::t('backend', 'Квесты'),
+						'icon' => '<i class="fa fa-question-circle"></i>',
+						'url' => ['/quests-pack/index'],
+						'visible' => Yii::$app->user->can('administrator')
+					],
+					[
+						'label' => Yii::t('backend', 'System'),
+						'options' => ['class' => 'header']
+					],
                     [
                         'label' => Yii::t('backend', 'Other'),
                         'url' => '#',

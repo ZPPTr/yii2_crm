@@ -13,7 +13,7 @@ class m170814_112335_quest_list_tables extends Migration
 
 		$this->createTable('{{%quest_pack}}', [
 			'id' => $this->primaryKey(),
-			'parent_id' => $this->integer(),
+			'parent_id' => $this->integer()->null(),
 			'title' => $this->string(512)->notNull(),
 			'description' => $this->text(),
 		], $tableOptions);
