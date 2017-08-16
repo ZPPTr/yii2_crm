@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%quest_result}}".
@@ -22,6 +23,16 @@ class QuestResult extends \yii\db\ActiveRecord
         return '{{%quest_result}}';
     }
 
+	/**
+	 * @inheritdoc
+	 */
+	public function behaviors()
+	{
+		return [
+			TimestampBehavior::className(),
+		];
+	}
+
     /**
      * @inheritdoc
      */
@@ -31,6 +42,9 @@ class QuestResult extends \yii\db\ActiveRecord
             [['quest_pack_id', 'user_id'], 'required'],
             [['quest_pack_id', 'user_id', 'created_at'], 'integer'],
             [['body'], 'string'],
+			[['created_at'], 'default', 'value' => function () {
+				return date(DATE_ISO8601);
+			}],
         ];
     }
 
@@ -46,4 +60,12 @@ class QuestResult extends \yii\db\ActiveRecord
             'body' => Yii::t('common', 'Body'),
         ];
     }
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getQuest()
+	{
+		return $this->hasOne(QuestPack::className(), ['id' => 'quest_pack_id']);
+	}
 }

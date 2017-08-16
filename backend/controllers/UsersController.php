@@ -2,9 +2,14 @@
 
 namespace backend\controllers;
 
+use common\models\QuestHistory;
+use common\models\Question;
+use common\models\QuestPack;
+use common\models\services\QuestService;
 use Yii;
 use common\models\Users;
 use backend\models\search\UsersSearch;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -50,10 +55,15 @@ class UsersController extends Controller
     {
     	$model = $this->findModel($id);
     	$orders = $model->userOrders;
+    	$quests = $model->userQuests;
+
+    	$allowed_quests = QuestPack::find()->all();
 
         return $this->render('view', [
             'model' => $model,
 			'orders' => $orders,
+			'quests' => $quests,
+			'allowed_quests' => $allowed_quests,
         ]);
     }
 
@@ -122,4 +132,50 @@ class UsersController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+	public function actionCreateQuest()
+	{
+		QuestService::attachQuestToUser(Yii::$app->request->post());
+
+		$model = $this->findModel(Yii::$app->request->post('user_id'));
+		$quests = $model->userQuests;
+
+		$allowed_quests = QuestPack::find()->all();
+
+		return $this->renderPartial('_questions-list', [
+			'quests' => $quests,
+			'allowed_quests' => $allowed_quests,
+			'user_id' => Yii::$app->request->post('user_id'),
+		]);
+    }
+
+    public function actionRunQuest($quest_id, $user_id)
+
+	{
+
+		$quest = QuestPack::findOne($quest_id);
+		$questHistory = QuestHistory::find()->where(['quest_pack_id' => $quest_id, 'user_id' => $user_id])->all();
+
+		return $this->render('quest-run', [
+			'quest' => $quest,
+			'user_id' => $user_id,
+			'quest_history' => $questHistory,
+		]);
+	}
+
+    public function actionInsertQuestHistory()
+	{
+
+		QuestService::insertQuestHistory(Yii::$app->request->post());
+
+		return $this->redirect(Url::previous());
+	}
+
+	public function actionClearAllQuestHistory($user_id = false)
+	{
+    	$condition = $user_id ? 'user_id='.$user_id : 'true';
+    	Yii::$app->db->createCommand('DELETE FROM quest_history WHERE '.$condition)->execute();
+
+		return $this->redirect(Url::previous());
+	}
 }

@@ -7,6 +7,7 @@ use Yii;
 /**
  * This is the model class for table "{{%quest_history}}".
  *
+ * @property integer $quest_pack_id
  * @property integer $user_id
  * @property integer $question_id
  * @property integer $answer_id
@@ -27,8 +28,8 @@ class QuestHistory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'question_id'], 'required'],
-            [['user_id', 'question_id', 'answer_id'], 'integer'],
+            [['user_id', 'question_id', 'quest_pack_id', 'answer_id'], 'required'],
+            [['user_id', 'question_id', 'answer_id', 'quest_pack_id'], 'integer'],
         ];
     }
 

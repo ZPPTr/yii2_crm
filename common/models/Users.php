@@ -176,7 +176,6 @@ class Users extends \yii\db\ActiveRecord
 	 */
 	public function getUserQuests()
 	{
-		return $this->hasMany(QuestResult::className(), ['user_id' => 'id'])
-			->where('is_certificate = 0');
+		return $this->hasMany(QuestResult::className(), ['user_id' => 'id']);
 	}
 }

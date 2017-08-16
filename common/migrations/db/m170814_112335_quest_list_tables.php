@@ -15,14 +15,15 @@ class m170814_112335_quest_list_tables extends Migration
 			'id' => $this->primaryKey(),
 			'parent_id' => $this->integer()->null(),
 			'title' => $this->string(512)->notNull(),
-			'description' => $this->text(),
+			'description' => $this->text()->null(),
+			'is_active' => $this->smallInteger()->defaultValue(1),
 		], $tableOptions);
 
 		$this->createTable('{{%question}}', [
 			'id' => $this->primaryKey(),
 			'quest_pack_id' => $this->integer(5),
 			'title' => $this->text()->notNull(),
-			'description' => $this->text(),
+			'description' => $this->text()->null(),
 			'sorting' => $this->integer(5),
 		], $tableOptions);
 
@@ -35,14 +36,17 @@ class m170814_112335_quest_list_tables extends Migration
 		$this->createTable('{{%quest_result}}', [
 			'quest_pack_id' => $this->integer(5),
 			'user_id' => $this->integer(11),
-			'created_at' => $this->integer(),
-			'body' => $this->text(),
+			'created_at' => $this->integer(11),
+			'updated_at' => $this->integer(11),
+			'body' => $this->text()->null(),
+			'interviewer_id' => $this->integer(11),
 		], $tableOptions);
 
 		$this->createTable('{{%quest_history}}', [
-			'user_id' => $this->integer(11),
-			'question_id' => $this->integer(11),
-			'answer_id' => $this->integer(11),
+			'user_id' => $this->integer(11)->notNull(),
+			'question_id' => $this->integer(11)->notNull(),
+			'answer_id' => $this->integer(11)->notNull(),
+			'quest_pack_id' => $this->integer(5)->notNull(),
 		], $tableOptions);
 
 		$this->addColumn('{{%question}}', 'parent_answer_id', $this->integer()->defaultValue(0));

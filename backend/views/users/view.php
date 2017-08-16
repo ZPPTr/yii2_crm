@@ -2,11 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Users */
 /* @var $orders common\models\Orders */
+/* @var $quests common\models\QuestPack */
+/* @var $allowed_quests common\models\QuestPack */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Users'), 'url' => ['index']];
@@ -64,6 +65,11 @@ $this->params['breadcrumbs'][] = $this->title;
 					],
 				]) ?>
 			</div>
+			<?php echo $this->render('_questions-list', [
+				'quests' => $quests,
+				'allowed_quests' => $allowed_quests,
+				'user_id' => $model->id,
+			]) ?>
 
 
 		</div>
@@ -72,6 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				<div class="box-header with-border">
 					<h3 class="box-title">Заказы пользователя</h3>
 				</div>
+				<?php if(!empty($orders)) : ?>
 				<?php foreach($orders as $order) : ?>
 					<div class="box-body table-responsive">
 						<table class="table">
@@ -90,8 +97,7 @@ $this->params['breadcrumbs'][] = $this->title;
 							</tr>
 							<tr>
 								<td colspan="4">
-									<?php foreach($order->orderItems as $item) :
-										//_debug($item);?>
+									<?php foreach($order->orderItems as $item) : ?>
 										<table class="table table-hover">
 											<tbody>
 											<tr>
@@ -108,9 +114,10 @@ $this->params['breadcrumbs'][] = $this->title;
 							</tbody>
 						</table>
 					</div>
-
-
 				<?php endforeach; ?>
+				<?php else : ?>
+					<h4>Пользователь еще ни чего не заказывал</h4>
+				<?php endif ?>
 			</div>
 		</div>
 	</div>
