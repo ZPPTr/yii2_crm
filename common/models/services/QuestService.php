@@ -66,5 +66,9 @@ class QuestService
 		$userQuestHistory->save();
 	}
 
+	public static function checkQuestionApplied(Question $question, $user_id)
+	{
+
+	}
 
 }
