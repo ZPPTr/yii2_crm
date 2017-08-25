@@ -53,4 +53,12 @@ class QuestPack extends \yii\db\ActiveRecord
 	{
 		return $this->hasMany(Question::className(), ['quest_pack_id' => 'id'])->orderBy('sorting');
 	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getQuestResults()
+	{
+		return $this->hasMany(QuestResult::className(), ['quest_pack_id' => 'id'])->orderBy('created_at');
+	}
 }

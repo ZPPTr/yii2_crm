@@ -14,23 +14,36 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php echo Html::a(Yii::t('backend', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?php echo Html::a(Yii::t('backend', 'Delete'), ['delete', 'id' => $model->id], [
+        <?php /*echo Html::a(Yii::t('backend', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => Yii::t('backend', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
             ],
-        ]) ?>
+        ]) */?>
     </p>
 
     <?php echo DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            //'id',
             'parent_id',
             'title',
             'description:ntext',
         ],
     ]) ?>
+	<div class="box box-success">
+		<div class="box-header with-border">
+			<i class="fa fa-list" aria-hidden="true"></i>
+
+			<h3 class="box-title">Список прозвоненых пользователей</h3>
+			<?php echo $this->render('_quest-result-list', [
+				'users' => $model->questResults,
+				'searchModel' => $searchModel,
+				'dataProvider' => $dataProvider,
+			]); ?>
+		</div>
+	</div>
+
 
 </div>

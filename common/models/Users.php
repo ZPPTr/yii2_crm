@@ -178,4 +178,9 @@ class Users extends \yii\db\ActiveRecord
 	{
 		return $this->hasMany(QuestResult::className(), ['user_id' => 'id']);
 	}
+
+	public function getFullName()
+	{
+		return $this->name . ' ' . $this->surname;
+	}
 }

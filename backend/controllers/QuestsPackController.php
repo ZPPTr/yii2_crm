@@ -8,6 +8,7 @@ use Yii;
 use yii\helpers\Url;
 use common\models\QuestPack;
 use backend\models\search\QuestPackSearch;
+use backend\models\search\QuestResultSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -51,8 +52,14 @@ class QuestsPackController extends Controller
      */
     public function actionView($id)
     {
+		$searchModel = new QuestResultSearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		$dataProvider->query->where("quest_pack_id=$id");
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+			'searchModel' => $searchModel,
+			'dataProvider' => $dataProvider,
         ]);
     }
 

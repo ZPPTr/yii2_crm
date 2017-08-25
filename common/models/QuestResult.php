@@ -68,4 +68,14 @@ class QuestResult extends \yii\db\ActiveRecord
 	{
 		return $this->hasOne(QuestPack::className(), ['id' => 'quest_pack_id']);
 	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getUser()
+	{
+		return $this->hasOne(Users::className(), ['id' => 'user_id']);
+	}
+
+
 }
