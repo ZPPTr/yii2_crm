@@ -55,6 +55,7 @@ class QuestService
 
 	public static function insertQuestHistory($fields)
 	{
+		//_debug($fields, true);
 		$userQuestHistory = new QuestHistory([
 			'user_id' => $fields['user_id'],
 			'question_id' => $fields['question_id'],

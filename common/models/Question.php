@@ -75,4 +75,12 @@ class Question extends \yii\db\ActiveRecord
 
 		return !empty($item_history);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAnswer($user_id)
+    {
+		return Yii::$app->db->createCommand("SELECT * FROM quest_history WHERE user_id = $user_id AND question_id = $this->id")->queryOne();
+    }
 }

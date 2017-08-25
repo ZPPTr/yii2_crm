@@ -150,9 +150,7 @@ class UsersController extends Controller
     }
 
     public function actionRunQuest($quest_id, $user_id)
-
 	{
-
 		$quest = QuestPack::findOne($quest_id);
 		$questHistory = QuestHistory::find()->where(['quest_pack_id' => $quest_id, 'user_id' => $user_id])->all();
 
@@ -165,7 +163,6 @@ class UsersController extends Controller
 
     public function actionInsertQuestHistory()
 	{
-
 		QuestService::insertQuestHistory(Yii::$app->request->post());
 
 		return $this->redirect(Url::previous());
