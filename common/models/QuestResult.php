@@ -15,7 +15,10 @@ use yii\behaviors\TimestampBehavior;
  */
 class QuestResult extends \yii\db\ActiveRecord
 {
-    /**
+	const RESULT_NONE = 0;
+	const RESULT_CALLED = 1;
+	const RESULT_DELAY = 2;
+	/**
      * @inheritdoc
      */
     public static function tableName()
@@ -40,9 +43,10 @@ class QuestResult extends \yii\db\ActiveRecord
     {
         return [
             [['quest_pack_id', 'user_id'], 'required'],
-            [['quest_pack_id', 'user_id', 'created_at'], 'integer'],
-            [['body'], 'string'],
-			[['created_at'], 'default', 'value' => function () {
+            [['quest_pack_id', 'user_id', 'result'], 'integer'],
+			[['delay_to'], 'filter', 'filter' => 'strtotime', 'skipOnEmpty' => false],
+            [['body', 'common_comment'], 'string'],
+			[['created_at', 'delay_to'], 'default', 'value' => function () {
 				return date(DATE_ISO8601);
 			}],
         ];
@@ -76,6 +80,4 @@ class QuestResult extends \yii\db\ActiveRecord
 	{
 		return $this->hasOne(Users::className(), ['id' => 'user_id']);
 	}
-
-
 }

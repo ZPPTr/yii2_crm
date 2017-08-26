@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\QuestHistory;
 use common\models\Question;
 use common\models\QuestPack;
+use common\models\QuestResult;
 use common\models\services\QuestService;
 use Yii;
 use common\models\Users;
@@ -152,13 +153,25 @@ class UsersController extends Controller
     public function actionRunQuest($quest_id, $user_id)
 	{
 		$quest = QuestPack::findOne($quest_id);
+		$questResult = QuestResult::find()->where(['quest_pack_id' => $quest_id, 'user_id' => $user_id])->one();
 		$questHistory = QuestHistory::find()->where(['quest_pack_id' => $quest_id, 'user_id' => $user_id])->all();
 
-		return $this->render('quest-run', [
-			'quest' => $quest,
-			'user_id' => $user_id,
-			'quest_history' => $questHistory,
-		]);
+//		_debug(Yii::$app->request->post(),true);
+		//echo var_dump(strtotime('Wed, 30/08/2017 12:12'));
+		if ($questResult->load(Yii::$app->request->post())) {
+			//_debug(($questResult), true);
+				if($questResult->save()) {
+					return $this->refresh();
+			}
+
+		} else {
+			return $this->render('_quest-run', [
+				'quest' => $quest,
+				'user_id' => $user_id,
+				'quest_history' => $questHistory,
+				'quest_result' => $questResult,
+			]);
+		}
 	}
 
     public function actionInsertQuestHistory()

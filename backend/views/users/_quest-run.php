@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
+use trntv\yii\datetime\DateTimeWidget;
+use common\models\QuestResult;
 
 Url::remember();
 
@@ -42,5 +44,30 @@ $this->params['breadcrumbs'][] = Yii::t('backend', 'Run');
 		<?php endforeach ?>
 	</ul>
 
+	<?php $form = ActiveForm::begin(); ?>
+
+	<?php echo $form->errorSummary($quest_result); ?>
+
+	<?php echo $form->field($quest_result, 'common_comment')->textarea() ?>
+	<?php echo $form->field($quest_result, 'delay_to')->widget(
+		DateTimeWidget::className(),
+		[
+			'phpDatetimeFormat' => 'dd.MM.yyyy, HH:mm'
+		]
+	) ?>
+	<?php echo $form->field($quest_result, 'result')->dropDownList([
+		QuestResult::RESULT_NONE => 'Не прозвонен',
+		QuestResult::RESULT_CALLED => 'Прозвонен',
+		QuestResult::RESULT_DELAY => 'Отложен',
+	]) ?>
+	<?php echo $form->field($quest_result, 'quest_pack_id')->hiddenInput(['value' => $quest->id]) ?>
+	<?php echo $form->field($quest_result, 'user_id')->hiddenInput(['value' => $user_id]) ?>
+
+	<div class="form-group">
+		<?php echo Html::submitButton( Yii::t('backend', 'Update'),
+			['class' => 'btn btn-success']) ?>
+	</div>
+
+	<?php ActiveForm::end(); ?>
 
 </div>
