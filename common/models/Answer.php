@@ -55,4 +55,12 @@ class Answer extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Question::className(), ['id' => 'question_id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCountReceivedAnswer()
+    {
+        return Yii::$app->db->createCommand('SELECT COUNT(1) FROM quest_history WHERE answer_id='.$this->id)->queryScalar();
+    }
 }

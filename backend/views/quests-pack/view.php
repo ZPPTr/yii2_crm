@@ -32,9 +32,21 @@ $this->params['breadcrumbs'][] = $this->title;
             'description:ntext',
         ],
     ]) ?>
+
 	<div class="box box-success">
 		<div class="box-header with-border">
-			<i class="fa fa-list" aria-hidden="true"></i>
+			<i class="fa fa-question-circle"></i>
+			<h3 class="box-title">Вопросы квеста</h3>
+
+			<?php echo $this->render('_quest-questions', [
+				'quest' => $model
+			]); ?>
+		</div>
+	</div>
+
+	<div class="box box-success">
+		<div class="box-header with-border">
+			<i class="fa fa-list"></i>
 
 			<h3 class="box-title">Список прозвоненых пользователей</h3>
 			<?php echo $this->render('_quest-result-list', [
