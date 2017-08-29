@@ -67,6 +67,14 @@ class Question extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getParentAnswer()
+    {
+        return $this->hasOne(Answer::className(), ['id' => 'parent_answer_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function checkApplied($user_id)
     {
 		$item_history = Yii::$app->db->createCommand("SELECT * FROM quest_history WHERE user_id = $user_id AND question_id = $this->id")->queryOne();
@@ -82,5 +90,13 @@ class Question extends \yii\db\ActiveRecord
     public function getAnswer($user_id)
     {
 		return Yii::$app->db->createCommand("SELECT * FROM quest_history WHERE user_id = $user_id AND question_id = $this->id")->queryOne();
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getComment($user_id)
+    {
+		return Yii::$app->db->createCommand("SELECT comment FROM quest_history WHERE user_id = $user_id AND question_id = $this->id")->queryScalar();
     }
 }

@@ -21,29 +21,37 @@ $this->params['breadcrumbs'][] = Yii::t('backend', 'Run');
 ?>
 
 <div class="quest-run-form">
-	<ul>
+	<ul class="col-md-6">
 		<?php
 		//_debug($quest_history);
 		foreach($quest->questions as $question) :
 			$question->checkApplied($user_id);
 			?>
 			<li>
-				<?= $question->title ?>
-				<?= Html::beginForm(['users/insert-quest-history'], 'post', [/*'data-pjax' => '', */'class' => 'form-inline']); ?>
+				<p><strong><?= $question->title ?></strong></p>
+				<?= Html::beginForm(['users/insert-quest-history'], 'post', ['class' => 'form']); ?>
+				<div class="form-group">
 				<?= Html::dropDownList('answer_id', $question->getAnswer($user_id), ArrayHelper::map($question->answers, 'id', 'title'), ['class' => 'form-control', 'disabled' => $question->checkApplied ? true : false]) ?>
-				<?= Html::input('hidden', 'user_id', $user_id) ?>
-				<?= Html::input('hidden', 'question_id', $question->id) ?>
-				<?= Html::input('hidden', 'quest_pack_id', $quest->id) ?>
+				</div>
+				<div class="form-group">
+				<?= Html::textarea('comment', $question->getComment($user_id), ['class' => 'form-control']) ?>
+				</div>
+				<?= Html::hiddenInput('user_id', $user_id) ?>
+				<?= Html::hiddenInput('question_id', $question->id) ?>
+				<?= Html::hiddenInput('quest_pack_id', $quest->id) ?>
+				<div class="form-group">
 				<?= Html::submitButton(
 						$question->checkApplied ? 'Ответ зафиксирован' : 'Зафиксировать ответ',
 						['class' => $question->checkApplied ? 'btn btn-success' : 'btn btn-primary',
 							'name' => 'hash-button',
 							'disabled' => $question->checkApplied ? true : false]) ?>
 				<?= Html::endForm() ?>
+				</div>
 			</li>
 		<?php endforeach ?>
 	</ul>
 
+	<div class="clearfix"></div>
 	<?php $form = ActiveForm::begin(); ?>
 
 	<?php echo $form->errorSummary($quest_result); ?>

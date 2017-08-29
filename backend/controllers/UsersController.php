@@ -156,7 +156,7 @@ class UsersController extends Controller
 		$questResult = QuestResult::find()->where(['quest_pack_id' => $quest_id, 'user_id' => $user_id])->one();
 		$questHistory = QuestHistory::find()->where(['quest_pack_id' => $quest_id, 'user_id' => $user_id])->all();
 
-//		_debug(Yii::$app->request->post(),true);
+		//_debug(Yii::$app->request->post(),true);
 		//echo var_dump(strtotime('Wed, 30/08/2017 12:12'));
 		if ($questResult->load(Yii::$app->request->post())) {
 			//_debug(($questResult), true);

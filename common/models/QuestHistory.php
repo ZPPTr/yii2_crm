@@ -11,6 +11,7 @@ use Yii;
  * @property integer $user_id
  * @property integer $question_id
  * @property integer $answer_id
+ * @property string $comment
  */
 class QuestHistory extends \yii\db\ActiveRecord
 {
@@ -30,6 +31,7 @@ class QuestHistory extends \yii\db\ActiveRecord
         return [
             [['user_id', 'question_id', 'quest_pack_id', 'answer_id'], 'required'],
             [['user_id', 'question_id', 'answer_id', 'quest_pack_id'], 'integer'],
+			[['comment'], 'safe'],
         ];
     }
 
@@ -39,9 +41,9 @@ class QuestHistory extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_id' => Yii::t('common', 'User ID'),
-            'question_id' => Yii::t('common', 'Question ID'),
-            'answer_id' => Yii::t('common', 'Answer ID'),
+            'user_id' => Yii::t('common', 'Пользователь'),
+            'question_id' => Yii::t('common', 'Вопрос'),
+            'answer_id' => Yii::t('common', 'Ответ'),
         ];
     }
 }

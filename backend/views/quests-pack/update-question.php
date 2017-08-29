@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = Yii::t('backend', 'Update');
 
 		<?php echo $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 		<?php echo $form->field($model, 'sorting')->textInput() ?>
-		<?php echo $form->field($model, 'parent_answer_id')->textInput(['rows' => 6]) ?>
+		<?php echo $form->field($model, 'parent_answer_id')->textInput() ?>
 
 		<div class="form-group">
 			<?php echo Html::submitButton(Yii::t('backend', 'Update'), ['class' => 'btn btn-primary']) ?>

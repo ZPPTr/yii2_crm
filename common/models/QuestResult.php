@@ -58,10 +58,15 @@ class QuestResult extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'quest_pack_id' => Yii::t('common', 'Quest Pack ID'),
-            'user_id' => Yii::t('common', 'User ID'),
-            'created_at' => Yii::t('common', 'Created At'),
+            'quest_pack_id' => Yii::t('common', 'Название Квеста'),
+            'user_id' => Yii::t('common', 'Пользователь'),
+            'created_at' => Yii::t('common', 'Создан'),
+            'updated_at' => Yii::t('common', 'Обновлен'),
             'body' => Yii::t('common', 'Body'),
+            'interviewer_id' => Yii::t('common', 'Интервьювер'),
+            'common_comment' => Yii::t('common', 'Общий комментарий'),
+            'result' => Yii::t('common', 'Результат'),
+            'delay_to' => Yii::t('common', 'Отложен до'),
         ];
     }
 

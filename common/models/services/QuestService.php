@@ -61,7 +61,7 @@ class QuestService
 			'question_id' => $fields['question_id'],
 			'answer_id' => $fields['answer_id'],
 			'quest_pack_id' => $fields['quest_pack_id'],
-
+			'comment' => $fields['comment'],
 		]);
 
 		$userQuestHistory->save();

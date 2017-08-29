@@ -27,7 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'quest_pack_id',
-            'user_id',
+            [
+				'attribute' => 'user_id',
+				'value' => 'user.fullName'
+			],
             'created_at',
             'updated_at',
             'body:ntext',
