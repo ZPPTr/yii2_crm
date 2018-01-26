@@ -23,5 +23,8 @@ body .user-panel > .info {
 .orders-list .box-body + .box-body {
 	margin-top:2em;
 }
+.kv-editable-form-inline .kv-editable-close {
+	margin-top: 0;
+}
 
 /*# sourceMappingURL=style.map *//*# sourceMappingURL=style.map */

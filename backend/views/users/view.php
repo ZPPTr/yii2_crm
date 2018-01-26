@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+//use kartik\editable\Editable;
+use common\widgets\Editable;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Users */
@@ -39,29 +41,85 @@ $this->params['breadcrumbs'][] = $this->title;
 						'manager_id',
 						'name',
 						'surname',
-						'patronymic',
-						'email:email',
-						'phone',
-						//'country_id',
-						//'city_id',
-						'city',
-						'address',
-						//'address_cor',
-
-						//'photo',
-						//'photo_thumb',
-						'date_time',
-						//'prolongation_at',
-						//'ranking_at',
-						//'controlled_at',
-						//'salt',
-						//'is_active',
-						//'is_valid',
-
-
-						//'is_valid_card',
-
-						//'agent_id',
+						//'patronymic',
+						//'email:email',
+						//'phone',
+						[
+							'attribute' => 'patronymic',
+							'label' => 'Отчество',
+							'format' => 'raw',
+							'value' => Editable::widget([
+								'name' => 'Users[patronymic]',
+								'asPopover' => false,
+								'size' => 'md',
+								'value' => $model->patronymic,
+								'inputType' => Editable::INPUT_TEXT,
+								'format' => Editable::FORMAT_BUTTON,
+								'options' => ['class' => 'form-control'],
+								'formOptions' => ['action' => ['/users/ajax-update', 'id' => $model->id]],
+							])
+						],
+						[
+							'attribute' => 'email',
+							'label' => 'E-mail',
+							'format' => 'raw',
+							'value' => Editable::widget([
+								'name' => 'Users[email]',
+								'asPopover' => false,
+								'size' => 'md',
+								'value' => $model->email,
+								'inputType' => Editable::INPUT_TEXT,
+								'format' => Editable::FORMAT_BUTTON,
+								'options' => ['class' => 'form-control'],
+								'formOptions' => ['action' => ['/users/ajax-update', 'id' => $model->id]],
+							])
+						],
+						[
+							'attribute' => 'phone',
+							'label' => 'Телефон',
+							'format' => 'raw',
+							'value' => Editable::widget([
+								'name' => 'Users[phone]',
+								'asPopover' => false,
+								'size' => 'md',
+								'value' => $model->phone,
+								'inputType' => Editable::INPUT_TEXT,
+								'format' => Editable::FORMAT_BUTTON,
+								'options' => ['class' => 'form-control'],
+								'formOptions' => ['action' => ['/users/ajax-update', 'id' => $model->id]],
+							])
+						],
+						[
+							'attribute' => 'city',
+							'label' => 'Город',
+							'format' => 'raw',
+							'value' => Editable::widget([
+								'name' => 'Users[city]',
+								'asPopover' => false,
+								'size' => 'md',
+								'value' => $model->city,
+								'inputType' => Editable::INPUT_TEXT,
+								'format' => Editable::FORMAT_BUTTON,
+								'options' => ['class' => 'form-control'],
+								'formOptions' => ['action' => ['/users/ajax-update', 'id' => $model->id]],
+							])
+						],
+						[
+							'attribute' => 'address',
+							'label' => 'Адрес',
+							'format' => 'raw',
+							'value' => Editable::widget([
+								'name' => 'Users[address]',
+								'asPopover' => false,
+								'size' => 'md',
+								'value' => $model->address,
+								'inputType' => Editable::INPUT_TEXTAREA,
+								'format' => Editable::FORMAT_BUTTON,
+								'options' => ['class' => 'form-control'],
+								'formOptions' => ['action' => ['/users/ajax-update', 'id' => $model->id]],
+							])
+						],
+						'date_time:datetime',
 					],
 				]) ?>
 			</div>

@@ -75,10 +75,10 @@ function env($key, $default = null) {
     return $value;
 }
 
-function _debug ($data, $die = false)
+function _debug ($data, $msg = false)
 {
 	echo '<pre style="text-align: left">';
 	print_r($data);
-	echo '</pre>';
-	if($die) die();
+	echo '</pre><hr>';
+	if($msg) die($msg);
 }

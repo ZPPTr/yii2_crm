@@ -68,6 +68,45 @@ class UsersController extends Controller
         ]);
     }
 
+	public function actionAjaxUpdate($id)
+	{
+		\Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$user = $this->findModel($id);
+
+		if ($user->load(Yii::$app->request->post())){
+			$attribute = array_keys(Yii::$app->request->post()['Users']);
+			if ($user->validate($attribute)){
+				$transaction = Yii::$app->db->beginTransaction();
+				try {
+					$user->tryUpdate(false);
+
+					$transaction->commit();
+					switch($attribute[0]){
+						case 'city':
+							return ['output' => $user->city ? $user->city : '', 'message'=>''];
+							break;
+						default:
+							$attr = $attribute[0];
+							return ['output'=>$user->$attr, 'message'=>''];
+					}
+
+				} catch (\Exception $e) {
+					$transaction->rollBack();
+					throw $e;
+				}
+			}else{
+				return [
+					'output' => '',
+					'message' => $user->getErrors()
+				];
+			}
+		}
+
+	}
+
+
+
+
     /**
      * Creates a new Users model.
      * If creation is successful, the browser will be redirected to the 'view' page.

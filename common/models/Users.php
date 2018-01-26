@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\ActiveRecord;
 use common\models\query\UsersQuery;
 use Yii;
 
@@ -64,7 +65,7 @@ use Yii;
  * @property integer $stock_auto_pay
  * @property integer $agent_id
  */
-class Users extends \yii\db\ActiveRecord
+class Users extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -80,6 +81,8 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+        	[['city', 'email', 'phone'], 'required'],
+			['email', 'email'],
 //            [['is_moderator', 'manager_id', 'country_id', 'city_id', 'mod_status', 'is_active', 'group_id', 'user_type', 'is_valid', 'is_handle', 'is_fop', 'is_potential_rank', 'am_coffee_machines', 'confirm_rule', 'is_valid_machine', 'is_valid_card', 'is_sklad', 'is_auto_pay', 'stock_auto_pay', 'agent_id'], 'integer'],
 //            [['number', 'manager_id', 'name', 'surname', 'patronymic', 'phone', 'country_id', 'city_id', 'city', 'address', 'address_cor', 'passport', 'passport_data', 'idnum', 'photo', 'photo_thumb', 'prolongation_at', 'ranking_at', 'controlled_at', 'mod_comment', 'salt', 'vk', 'fb', 'skype', 'bank_card', 'bank_name', 'rr', 'edrpou', 'mfo'], 'required'],
 //            [['date_time', 'prolongation_at', 'ranking_at', 'controlled_at'], 'safe'],
@@ -87,8 +90,8 @@ class Users extends \yii\db\ActiveRecord
 //            [['number', 'name', 'surname', 'patronymic', 'phone', 'passport', 'idnum', 'password', 'salt', 'bank_card', 'bank_name'], 'string', 'max' => 32],
 //            [['email', 'city', 'photo', 'photo_thumb', 'vk', 'fb', 'skype', 'rr', 'edrpou', 'mfo'], 'string', 'max' => 64],
 //            [['address', 'address_cor'], 'string', 'max' => 128],
-//            [['passport_data'], 'string', 'max' => 150],
-//            [['mod_comment'], 'string', 'max' => 512],
+            [['address'], 'string', 'max' => 256],
+            [['city', 'phone', 'patronymic'], 'string', 'max' => 64],
         ];
     }
 
