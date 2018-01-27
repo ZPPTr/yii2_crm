@@ -81,7 +81,7 @@ class Users extends ActiveRecord
     public function rules()
     {
         return [
-        	[['city', 'email', 'phone'], 'required'],
+        	[['city', 'email', 'phone', 'name', 'surname'], 'required'],
 			['email', 'email'],
 //            [['is_moderator', 'manager_id', 'country_id', 'city_id', 'mod_status', 'is_active', 'group_id', 'user_type', 'is_valid', 'is_handle', 'is_fop', 'is_potential_rank', 'am_coffee_machines', 'confirm_rule', 'is_valid_machine', 'is_valid_card', 'is_sklad', 'is_auto_pay', 'stock_auto_pay', 'agent_id'], 'integer'],
 //            [['number', 'manager_id', 'name', 'surname', 'patronymic', 'phone', 'country_id', 'city_id', 'city', 'address', 'address_cor', 'passport', 'passport_data', 'idnum', 'photo', 'photo_thumb', 'prolongation_at', 'ranking_at', 'controlled_at', 'mod_comment', 'salt', 'vk', 'fb', 'skype', 'bank_card', 'bank_name', 'rr', 'edrpou', 'mfo'], 'required'],
@@ -91,7 +91,7 @@ class Users extends ActiveRecord
 //            [['email', 'city', 'photo', 'photo_thumb', 'vk', 'fb', 'skype', 'rr', 'edrpou', 'mfo'], 'string', 'max' => 64],
 //            [['address', 'address_cor'], 'string', 'max' => 128],
             [['address'], 'string', 'max' => 256],
-            [['city', 'phone', 'patronymic'], 'string', 'max' => 64],
+            [['city', 'phone', 'patronymic', 'name', 'surname'], 'string', 'max' => 64],
         ];
     }
 

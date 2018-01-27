@@ -163,13 +163,13 @@ $bundle = BackendAsset::register($this);
 						'label' => Yii::t('backend', 'Клиенты'),
 						'icon' => '<i class="fa fa-users"></i>',
 						'url' => ['/users/index'],
-						'visible' => Yii::$app->user->can('administrator')
+						//'visible' => Yii::$app->user->can('administrator')
 					],
 					[
 						'label' => Yii::t('backend', 'Квесты'),
 						'icon' => '<i class="fa fa-question-circle"></i>',
 						'url' => ['/quests-pack/index'],
-						'visible' => Yii::$app->user->can('administrator')
+						//'visible' => Yii::$app->user->can('administrator')
 					],
 					[
 						'label' => Yii::t('backend', 'System'),
@@ -180,6 +180,7 @@ $bundle = BackendAsset::register($this);
                         'url' => '#',
                         'icon' => '<i class="fa fa-cogs"></i>',
                         'options' => ['class' => 'treeview'],
+                        'visible' => Yii::$app->user->can('administrator'),
                         'items' => [
                             [
                                 'label' => Yii::t('backend', 'i18n'),

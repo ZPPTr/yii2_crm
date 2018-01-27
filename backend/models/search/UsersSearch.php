@@ -12,6 +12,9 @@ use common\models\Users;
  */
 class UsersSearch extends Users
 {
+	public $fullName;
+
+
     /**
      * @inheritdoc
      */
@@ -19,7 +22,7 @@ class UsersSearch extends Users
     {
         return [
             [['id', 'is_moderator', 'manager_id', 'country_id', 'city_id', 'mod_status', 'is_active', 'group_id', 'user_type', 'is_valid', 'is_handle', 'is_fop', 'is_potential_rank', 'am_coffee_machines', 'confirm_rule', 'is_valid_machine', 'is_valid_card', 'is_sklad', 'is_auto_pay', 'stock_auto_pay', 'agent_id'], 'integer'],
-            [['number', 'name', 'surname', 'patronymic', 'email', 'phone', 'city', 'address', 'address_cor', 'passport', 'passport_data', 'idnum', 'photo', 'photo_thumb', 'date_time', 'prolongation_at', 'ranking_at', 'controlled_at', 'mod_comment', 'password', 'salt', 'vk', 'fb', 'skype', 'bank_card', 'bank_name', 'rr', 'edrpou', 'mfo'], 'safe'],
+            [['number', 'name', 'surname', 'fullName', 'patronymic', 'email', 'phone', 'city', 'address', 'address_cor', 'passport', 'passport_data', 'idnum', 'photo', 'photo_thumb', 'date_time', 'prolongation_at', 'ranking_at', 'controlled_at', 'mod_comment', 'password', 'salt', 'vk', 'fb', 'skype', 'bank_card', 'bank_name', 'rr', 'edrpou', 'mfo'], 'safe'],
             [['balance', 'bonus_balance', 'stock_balance', 'am_free_coffee'], 'number'],
         ];
     }

@@ -39,11 +39,38 @@ $this->params['breadcrumbs'][] = $this->title;
 						'id',
 						'number',
 						'manager_id',
-						'name',
-						'surname',
-						//'patronymic',
-						//'email:email',
-						//'phone',
+						//'name',
+						//'surname',
+						[
+							'attribute' => 'name',
+							'label' => 'Имя',
+							'format' => 'raw',
+							'value' => Editable::widget([
+								'name' => 'Users[name]',
+								'asPopover' => false,
+								'size' => 'md',
+								'value' => $model->name,
+								'inputType' => Editable::INPUT_TEXT,
+								'format' => Editable::FORMAT_BUTTON,
+								'options' => ['class' => 'form-control'],
+								'formOptions' => ['action' => ['/users/ajax-update', 'id' => $model->id]],
+							])
+						],
+						[
+							'attribute' => 'surname',
+							'label' => 'Фамилия',
+							'format' => 'raw',
+							'value' => Editable::widget([
+								'name' => 'Users[surname]',
+								'asPopover' => false,
+								'size' => 'md',
+								'value' => $model->surname,
+								'inputType' => Editable::INPUT_TEXT,
+								'format' => Editable::FORMAT_BUTTON,
+								'options' => ['class' => 'form-control'],
+								'formOptions' => ['action' => ['/users/ajax-update', 'id' => $model->id]],
+							])
+						],
 						[
 							'attribute' => 'patronymic',
 							'label' => 'Отчество',
