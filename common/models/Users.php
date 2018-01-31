@@ -167,6 +167,23 @@ class Users extends ActiveRecord
 	/**
 	 * @return \yii\db\ActiveQuery
 	 */
+	public function getUserReport()
+	{
+		return $this->hasMany(ReportMonth::className(), ['user_id' => 'id']);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getUserReportLastMonth()
+	{
+		return $this->hasOne(ReportMonth::className(), ['user_id' => 'id'])
+			->where(['ym' => date('Ym', strtotime('- 1 month'))]);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
 	public function getUserOrders()
 	{
 		return $this->hasMany(Orders::className(), ['user_id' => 'id'])

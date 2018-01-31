@@ -160,11 +160,26 @@ $bundle = BackendAsset::register($this);
                         ]
                     ],
 					[
-						'label' => Yii::t('backend', 'Клиенты'),
+						'label' => Yii::t('backend', 'Пользователи'),
+						'url' => '#',
 						'icon' => '<i class="fa fa-users"></i>',
-						'url' => ['/users/index'],
-						//'visible' => Yii::$app->user->can('administrator')
+						'options' => ['class' => 'treeview'],
+						'items' => [
+							[
+								'label' => Yii::t('backend', 'Клиенты'),
+								'icon' => '<i class="fa fa-users"></i>',
+								'url' => ['/users/index'],
+								//'visible' => Yii::$app->user->can('administrator')
+							],
+							[
+								'label' => Yii::t('backend', 'Списание Баланса'),
+								'icon' => '<i class="fa fa-money"></i>',
+								'url' => ['/users/users-decrease-balance'],
+								'visible' => Yii::$app->user->can('administrator')
+							],
+						]
 					],
+
 					[
 						'label' => Yii::t('backend', 'Квесты'),
 						'icon' => '<i class="fa fa-question-circle"></i>',

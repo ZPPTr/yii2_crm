@@ -47,6 +47,26 @@ class UsersController extends Controller
         ]);
     }
 
+
+	/**
+	 * Lists User models for decrease balance.
+	 * @return mixed
+	 */
+	public function actionUsersDecreaseBalance()
+	{
+		$searchModel = new UsersSearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		$dataProvider->query
+			->joinWith(['userReportLastMonth'])
+			->andWhere(['is_auto_pay' => true])
+			->andWhere(['>', 'profit', 50]);
+
+		return $this->render('decrease-balance', [
+			'searchModel' => $searchModel,
+			'dataProvider' => $dataProvider,
+		]);
+	}
+
     /**
      * Displays a single Users model.
      * @param string $id
