@@ -72,4 +72,12 @@ class QuestService
 
 	}
 
+	/**
+	 * @return \common\models\QuestResult
+	 */
+	public static function getUserQuest($userId, $questId)
+	{
+		return QuestResult::find()->where( ['user_id' => $userId, 'quest_pack_id' => $questId])->one();
+	}
+
 }

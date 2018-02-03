@@ -2,22 +2,27 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\models\services\QuestService;
 
-/* @var $this yii\web\View */
-/* @var $searchModel backend\models\search\UsersSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/** @var $this yii\web\View
+* @var $searchModel backend\models\search\UsersSearch
+* @var $dataProvider yii\data\ActiveDataProvider
+* @var $questList  array
+* @var $questPackId  integer
+*/
 
 $this->title = Yii::t('backend', 'Users');
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="users-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel, 'questList' => $questList]); ?>
 
     <p>
-        <?php echo Html::a(Yii::t('backend', 'Create {modelClass}', [
+        <?php /*echo Html::a(Yii::t('backend', 'Create {modelClass}', [
     'modelClass' => 'Users',
-]), ['create'], ['class' => 'btn btn-success']) ?>
+]), ['create'], ['class' => 'btn btn-success'])*/ ?>
     </p>
 
     <?php echo GridView::widget([
@@ -37,18 +42,28 @@ $this->params['breadcrumbs'][] = $this->title;
 		],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
+			//'id',
             'number',
             [
 				'label' => 'Имя',
 				'value' => 'fullName',
 			],
             //'email:email',
-            'email',
             'phone',
             // 'country_id',
             // 'city_id',
-            'city',
+            [
+				'label' => 'Запланированная дата прозвона',
+				'value' => function($userModel) use ( $questPackId) {
+					$questResult = QuestService::getUserQuest($userModel->id, $questPackId);
+					if ($questResult->delay_to) {
+						return Yii::$app->formatter->asDatetime($questResult->delay_to, 'medium');
+					} else {
+						return 'Не заданно';
+					}
+
+				},
+			],
 
             // 'date_time',
             // 'prolongation_at',

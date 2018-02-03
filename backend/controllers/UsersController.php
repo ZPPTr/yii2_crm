@@ -38,12 +38,15 @@ class UsersController extends Controller
      */
     public function actionIndex()
     {
+    	$questPackId = Yii::$app->request->get('UsersSearch')['questPackId'] ? Yii::$app->request->get('UsersSearch')['questPackId'] : 0;
         $searchModel = new UsersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+			'questList' => QuestPack::find()->select('title')->indexBy('id')->column(),
+			'questPackId' => $questPackId,
         ]);
     }
 

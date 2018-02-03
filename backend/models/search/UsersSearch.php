@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Users;
+use yii\helpers\ArrayHelper;
 
 /**
  * UsersSearch represents the model behind the search form about `common\models\Users`.
@@ -13,6 +14,7 @@ use common\models\Users;
 class UsersSearch extends Users
 {
 	public $fullName;
+	public $questPackId;
 
 
     /**
@@ -43,6 +45,20 @@ class UsersSearch extends Users
      *
      * @return ActiveDataProvider
      */
+
+	/**
+	 * @inheritdoc
+	 */
+	public function attributeLabels()
+	{
+
+		$labels = [
+			'questPackId' => 'Выберите квест относительно которого хотите отсортировать пользователей',
+		];
+		return ArrayHelper::merge(parent::attributeLabels(), $labels);
+	}
+
+
     public function search($params)
     {
         $query = Users::find();
@@ -93,25 +109,7 @@ class UsersSearch extends Users
             ->andFilterWhere(['like', 'patronymic', $this->patronymic])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'city', $this->city])
-            ->andFilterWhere(['like', 'address', $this->address])
-            ->andFilterWhere(['like', 'address_cor', $this->address_cor])
-            ->andFilterWhere(['like', 'passport', $this->passport])
-            ->andFilterWhere(['like', 'passport_data', $this->passport_data])
-            ->andFilterWhere(['like', 'idnum', $this->idnum])
-            ->andFilterWhere(['like', 'photo', $this->photo])
-            ->andFilterWhere(['like', 'photo_thumb', $this->photo_thumb])
-            ->andFilterWhere(['like', 'mod_comment', $this->mod_comment])
-            ->andFilterWhere(['like', 'password', $this->password])
-            ->andFilterWhere(['like', 'salt', $this->salt])
-            ->andFilterWhere(['like', 'vk', $this->vk])
-            ->andFilterWhere(['like', 'fb', $this->fb])
-            ->andFilterWhere(['like', 'skype', $this->skype])
-            ->andFilterWhere(['like', 'bank_card', $this->bank_card])
-            ->andFilterWhere(['like', 'bank_name', $this->bank_name])
-            ->andFilterWhere(['like', 'rr', $this->rr])
-            ->andFilterWhere(['like', 'edrpou', $this->edrpou])
-            ->andFilterWhere(['like', 'mfo', $this->mfo]);
+            ->andFilterWhere(['like', 'city', $this->city]);
 
         return $dataProvider;
     }
