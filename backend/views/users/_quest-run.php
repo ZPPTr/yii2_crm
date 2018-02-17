@@ -58,10 +58,7 @@ $this->params['breadcrumbs'][] = Yii::t('backend', 'Run');
 
 	<?php echo $form->field($quest_result, 'common_comment')->textarea() ?>
 	<?php echo $form->field($quest_result, 'delay_to')->widget(
-		DateTimeWidget::className(),
-		[
-			'phpDatetimeFormat' => 'dd.MM.yyyy, HH:mm'
-		]
+		DateTimeWidget::className()
 	) ?>
 	<?php echo $form->field($quest_result, 'result')->dropDownList([
 		QuestResult::RESULT_NONE => 'Не прозвонен',

@@ -2,12 +2,14 @@
 
 namespace backend\controllers;
 
+use common\models\services\QuestStatisticService;
 use Yii;
 use common\models\QuestResult;
 use backend\models\search\QuestResultSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * QuestsResultController implements the CRUD actions for QuestResult model.
@@ -104,6 +106,15 @@ class QuestsResultController extends Controller
         $this->findModel($quest_pack_id, $user_id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionGetUsersByAnswer($questPackId, $questionId, $answerId)
+    {
+		Yii::$app->response->format = Response::FORMAT_JSON;
+
+		$usersList = QuestStatisticService::getUsersByAnswer($questPackId, $questionId, $answerId);
+
+        return $this->renderAjax('_users-list', ['usersList' => $usersList]);
     }
 
     /**

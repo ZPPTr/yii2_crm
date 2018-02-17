@@ -1,6 +1,7 @@
 <?php
 
 use dosamigos\chartjs\ChartJs;
+use yii\widgets\Pjax;
 
 ?>
 <div class="row">
@@ -15,8 +16,13 @@ use dosamigos\chartjs\ChartJs;
 						<?php
 						$cart_labels = [];
 						$chart_values = [];
-						foreach($question->answers as $answer) : ?>
-							<p><?php echo $answer->title ?>............................<?php echo $answer->countReceivedAnswer ?></p>
+						foreach($question->answers as $answer) :
+							$uniqID = uniqid(); ?>
+							<p>
+								<?php echo $answer->title ?>............................<?php echo $answer->countReceivedAnswer ?>
+								<?php echo \yii\helpers\Html::a(' <i class="fa fa-list-alt" title="Поазать / скрыть список пользователей"></i>', ['quests-result/get-users-by-answer', 'questPackId' => $quest->id, 'questionId' => $question->id, 'answerId' => $answer->id], ['class' => 'switch-users-list', 'data-id' => $uniqID]) ?>
+							</p>
+							<ul class="users-list-<?= $uniqID ?> hidden"></ul>
 							<?php
 								$cart_labels[] = $answer->title;
 								$chart_values[] = $answer->countReceivedAnswer;

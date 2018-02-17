@@ -27,4 +27,14 @@ body .user-panel > .info {
 	margin-top: 0;
 }
 
+[class*=users-list] li {
+	display: flex;
+	justify-content: space-between;
+	max-width: 500px;
+}
+[class*=users-list] li a {
+	font-weight: bolder;
+	color: #242D32;
+}
+
 /*# sourceMappingURL=style.map *//*# sourceMappingURL=style.map */
