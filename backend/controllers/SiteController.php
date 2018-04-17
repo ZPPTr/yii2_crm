@@ -76,4 +76,46 @@ class SiteController extends \yii\web\Controller
 
         return $this->render('settings', ['model' => $model]);
     }
+
+	public function actionCreateFieldsCoefficient()
+	{
+		$products = Yii::$app->db->createCommand('SELECT id FROM products')->queryColumn();
+		$countries = Yii::$app->db->createCommand('SELECT id FROM net_country WHERE is_active=1')->queryColumn();
+
+		$checkProcess = false;
+		foreach ($products as $product_id) {
+			foreach ($countries as $country_id) {
+				$coefficient = Yii::$app->db->createCommand('
+					SELECT * FROM price_coefficients 
+					WHERE country_id='.$country_id.' 
+					AND product_id='.$product_id)
+					->queryOne();
+				if(!$coefficient) {
+					$checkProcess = Yii::$app->db->createCommand()->insert('price_coefficients', [
+						'country_id' => $country_id,
+						'product_id' => $product_id,
+						'price_coefficient' => 1,
+						'price_purchase_coefficient' => 1,
+						'is_available' => 0
+					])->execute();
+				}
+
+			}
+
+		}
+
+		if ($checkProcess) {
+			Yii::$app->getSession()->setFlash('alert', [
+				'body'=>Yii::t('backend', 'Поля коэффициэнтов цен были успешно добавленны'),
+				'options'=>['class'=>'alert-success']
+			]);
+		} else {
+			Yii::$app->getSession()->setFlash('alert', [
+				'body'=>Yii::t('backend', 'Небыло затронуто ни одного поля'),
+				'options'=>['class'=>'alert-danger']
+			]);
+		}
+
+		return $this->goBack();
+    }
 }

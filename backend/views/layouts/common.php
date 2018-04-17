@@ -181,6 +181,21 @@ $bundle = BackendAsset::register($this);
 					],
 
 					[
+						'label' => Yii::t('backend', 'Магазин'),
+						'url' => '#',
+						'icon' => '<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>',
+						'options' => ['class' => 'treeview'],
+						'items' => [
+							[
+								'label' => Yii::t('backend', 'Создать поля коэффициентов цен'),
+								'icon' => '<i class="fa fa-creative-commons" aria-hidden="true"></i>',
+								'url' => ['/site/create-fields-coefficient'],
+								'visible' => Yii::$app->user->can('administrator')
+							],
+						]
+					],
+
+					[
 						'label' => Yii::t('backend', 'Квесты'),
 						'icon' => '<i class="fa fa-question-circle"></i>',
 						'url' => ['/quests-pack/index'],

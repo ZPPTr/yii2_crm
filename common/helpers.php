@@ -77,8 +77,13 @@ function env($key, $default = null) {
 
 function _debug ($data, $msg = false)
 {
-	echo '<pre style="text-align: left">';
-	print_r($data);
+	if(!$data) {
+		var_dump($data);
+	} else {
+		echo '<pre style="text-align: left">';
+		print_r($data);
+	}
+
 	echo '</pre><hr>';
 	if($msg) die($msg);
 }
