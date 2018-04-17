@@ -1,7 +1,6 @@
 <?php
 
 use dosamigos\chartjs\ChartJs;
-use yii\widgets\Pjax;
 
 ?>
 <div class="row">
@@ -27,7 +26,6 @@ use yii\widgets\Pjax;
 								$cart_labels[] = $answer->title;
 								$chart_values[] = $answer->countReceivedAnswer;
 							?>
-							<? //_debug(Json::encode($cart_labels)) ?>
 						<?php endforeach; ?>
 					</div>
 					<div class="col-sm-3">
@@ -58,7 +56,6 @@ use yii\widgets\Pjax;
 				</div>
 
 			</div>
-			<!--<div id="myfirstchart" style="height: 250px;"></div>-->
 
 			<div class="icon">
 				<i class="fa fa-question-circle"></i>
