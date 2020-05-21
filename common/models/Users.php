@@ -64,9 +64,16 @@ use Yii;
  * @property integer $is_auto_pay
  * @property integer $stock_auto_pay
  * @property integer $agent_id
+ * @property float $deposit_balance [float]
+ * @property int $parent_sklad_id [int(11)]
+ * @property float $referal_sklad_balanse [float]
+ * @property int $is_has_coffeemashine [int(1)]
  */
 class Users extends ActiveRecord
 {
+    const USER_TYPE_PARTNER = 2;
+    const USER_TYPE_CUSTOMER = 1;
+
     /**
      * @inheritdoc
      */
