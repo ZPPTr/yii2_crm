@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Users;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use common\models\services\QuestService;
@@ -56,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'label' => 'Запланированная дата прозвона',
 				'value' => function($userModel) use ( $questPackId) {
 					$questResult = QuestService::getUserQuest($userModel->id, $questPackId);
-					if ($questResult->delay_to) {
+					if ($questResult && $questResult->delay_to) {
 						return Yii::$app->formatter->asDatetime($questResult->delay_to, 'medium');
 					} else {
 						return 'Не заданно';
@@ -64,6 +65,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 				},
 			],
+	        [
+				'attribute' => 'user_type',
+		        'content' => function($model) {
+    	            return $model->user_type == Users::USER_TYPE_PARTNER ? 'Бизнесмен' : 'Потребитель';
+		        }
+	        ],
 
             // 'date_time',
             // 'prolongation_at',

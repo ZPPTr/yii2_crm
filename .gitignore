@@ -38,3 +38,8 @@ tests/codeception/*/_support/_generated/*
 /common/runtime/
 /frontend/runtime/
 /frontend/web/assets/
+*/**/style.map
+/backend/web/bundle/
+*/**/error_log
+/backend/web/.well-known/
+/docker/mysql/data/
