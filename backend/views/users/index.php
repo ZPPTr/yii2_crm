@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="users-index">
 
     <?php echo $this->render('_search', ['model' => $searchModel, 'questList' => $questList]); ?>
+    <?php echo $this->render('_actions'); ?>
 
     <p>
         <?php /*echo Html::a(Yii::t('backend', 'Create {modelClass}', [
