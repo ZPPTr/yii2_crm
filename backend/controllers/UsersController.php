@@ -2,6 +2,8 @@
 
 namespace backend\controllers;
 
+use backend\modules\user\models\Bonuses;
+use common\models\finances\DecreasedBalance;
 use common\models\QuestHistory;
 use common\models\Question;
 use common\models\QuestPack;
@@ -10,7 +12,11 @@ use common\models\services\QuestService;
 use Yii;
 use common\models\Users;
 use backend\models\search\UsersSearch;
+use yii\base\InvalidConfigException;
+use yii\data\ActiveDataProvider;
+use yii\db\Exception;
 use yii\helpers\Url;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -57,15 +63,19 @@ class UsersController extends Controller
 	 */
 	public function actionUsersDecreaseBalance()
 	{
-		$searchModel = new UsersSearch();
-		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-		$dataProvider->query
-			->joinWith(['userReportLastMonth'])
-			->andWhere(['is_auto_pay' => true])
-			->andWhere(['>', 'profit', 50]);
+//		$searchModel = new UsersSearch();
+//		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+//		$dataProvider->query
+//			->joinWith(['userReportLastMonth'])
+//			->andWhere(['is_auto_pay' => true])
+//			->andWhere(['>', 'profit', 50]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => DecreasedBalance::find()->where(['ym' => date('Ym', strtotime('- 5 weeks'))])
+        ]);
 
 		return $this->render('decrease-balance', [
-			'searchModel' => $searchModel,
+//			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
 		]);
 	}
@@ -247,4 +257,37 @@ class UsersController extends Controller
 
 		return $this->redirect(Url::previous());
 	}
+
+    /**
+     */
+    public function actionExportBonuses()
+    {
+        $models = Users::find()
+            ->select(['id', 'name', 'surname'])
+            ->where(['>=', 'balance', 50])
+            ->all();
+        _debug($models, true);
+	}
+
+    /**
+     * @throws BadRequestHttpException
+     * @throws InvalidConfigException
+     * @throws Exception
+     */
+    public function actionImportBonuses()
+    {
+        $bonuses = Yii::createObject(Bonuses::className());
+        $bonuses->importBonuses();
+
+        $this->redirect('users-decrease-balance');
+	}
+
+	public function actionApprovePayoutOfBonuses()
+    {
+        $bonuses = Yii::createObject(Bonuses::className());
+
+        if ($bonuses->chargeBonuses()) {
+            $this->redirect('users-decrease-balance');
+        }
+    }
 }
