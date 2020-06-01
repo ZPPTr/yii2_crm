@@ -38,6 +38,67 @@ class Bonuses extends Model
     }
 
     /**
+     *
+     */
+    public function exportBonuses() {
+        $columns = ['UserId', 'FullName', 'CardNumber', 'AutoPay', 'Stock', 'Balance'];
+        $data[] = $columns;
+
+        $models = Users::find()
+            ->where(['>=', 'balance', 50])
+            ->andWhere(['is_auto_pay' => 1])
+            ->with('agent')
+            ->all();
+
+        foreach ($models as $model) {
+            $data[] = [
+                $model->id,
+                $model->fullName,
+                $model->number,
+                $model->is_auto_pay ? 'да' : 'нет',
+                $model->agent->city.', '.$model->agent->address,
+                $model->balance];
+        }
+
+        $this->downloadSendHeaders("data_export_" . date("Y-m-d") . ".csv");
+        echo $this->array2csv($data);
+        die();
+
+    }
+
+    public function array2csv(array &$array)
+    {
+        if (count($array) == 0) {
+            return null;
+        }
+        ob_start();
+        $df = fopen("php://output", 'w');
+        fputcsv($df, array_keys(reset($array)));
+        foreach ($array as $row) {
+            fputcsv($df, $row);
+        }
+        fclose($df);
+        return ob_get_clean();
+    }
+
+    private function downloadSendHeaders($filename) {
+        // disable caching
+        $now = gmdate("D, d M Y H:i:s");
+        header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
+        header("Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate");
+        header("Last-Modified: {$now} GMT");
+
+        // force download
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");
+
+        // disposition / encoding on response body
+        header("Content-Disposition: attachment;filename={$filename}");
+        header("Content-Transfer-Encoding: binary");
+    }
+
+    /**
      * @return boolean
      * @throws Exception
      */
@@ -95,6 +156,8 @@ class Bonuses extends Model
     /**
      * @param $userId
      * @param $amount
+     * @return int
+     * @throws Exception
      */
     private function decreaseBalance($userId, $amount)
     {

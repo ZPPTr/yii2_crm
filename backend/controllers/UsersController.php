@@ -259,14 +259,15 @@ class UsersController extends Controller
 	}
 
     /**
+     * @throws InvalidConfigException
      */
     public function actionExportBonuses()
     {
-        $models = Users::find()
-            ->select(['id', 'name', 'surname'])
-            ->where(['>=', 'balance', 50])
-            ->all();
-        _debug($models, true);
+        /** @var Bonuses $bonuses */
+        $bonuses = Yii::createObject(Bonuses::className());
+        $bonuses->exportBonuses();
+
+        $this->redirect('users-decrease-balance');
 	}
 
     /**
@@ -276,14 +277,20 @@ class UsersController extends Controller
      */
     public function actionImportBonuses()
     {
+        /** @var Bonuses $bonuses */
         $bonuses = Yii::createObject(Bonuses::className());
         $bonuses->importBonuses();
 
         $this->redirect('users-decrease-balance');
 	}
 
+    /**
+     * @throws Exception
+     * @throws InvalidConfigException
+     */
 	public function actionApprovePayoutOfBonuses()
     {
+        /** @var Bonuses $bonuses */
         $bonuses = Yii::createObject(Bonuses::className());
 
         if ($bonuses->chargeBonuses()) {

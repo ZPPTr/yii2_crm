@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\components\ActiveRecord;
 use common\models\query\UsersQuery;
+use common\models\stocks\Agents;
 use Yii;
 
 
@@ -209,5 +210,10 @@ class Users extends ActiveRecord
 	public function getFullName()
 	{
 		return $this->name . ' ' . $this->surname;
+	}
+
+    public function getAgent()
+    {
+        return $this->hasOne(Agents::classname(), ['id' => 'agent_id']);
 	}
 }

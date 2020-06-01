@@ -19,7 +19,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="users-index">
 
     <?php echo $this->render('_search', ['model' => $searchModel, 'questList' => $questList]); ?>
-    <?php echo $this->render('_actions'); ?>
 
     <p>
         <?php /*echo Html::a(Yii::t('backend', 'Create {modelClass}', [
@@ -58,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'label' => 'Запланированная дата прозвона',
 				'value' => function($userModel) use ( $questPackId) {
 					$questResult = QuestService::getUserQuest($userModel->id, $questPackId);
-					if ($questResult && $questResult->delay_to) {
+					if ($questResult->delay_to) {
 						return Yii::$app->formatter->asDatetime($questResult->delay_to, 'medium');
 					} else {
 						return 'Не заданно';
