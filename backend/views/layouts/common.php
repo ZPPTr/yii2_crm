@@ -177,6 +177,12 @@ $bundle = BackendAsset::register($this);
 								'url' => ['/users/users-decrease-balance'],
 								'visible' => Yii::$app->user->can('administrator')
 							],
+							[
+								'label' => Yii::t('backend', 'Склады'),
+								'icon' => '<i class="fa fa-cubes" aria-hidden="true"></i>',
+								'url' => ['/stock/'],
+								'visible' => Yii::$app->user->can('administrator')
+							],
 						]
 					],
 

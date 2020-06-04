@@ -46,7 +46,6 @@ class Bonuses extends Model
 
         $models = Users::find()
             ->where(['>=', 'balance', 50])
-            ->andWhere(['is_auto_pay' => 1])
             ->with('agent')
             ->all();
 

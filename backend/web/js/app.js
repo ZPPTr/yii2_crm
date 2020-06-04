@@ -12,8 +12,6 @@ $(function() {
     $(".connectedSortable .box-header, .connectedSortable .nav-tabs-custom").css("cursor", "move");
 
     $(document).ready(function(){
-
-
         // get list users for answer
         $(".switch-users-list").on('click', function (e) {
             e.preventDefault();
@@ -35,3 +33,19 @@ $(function() {
     });
 
 });
+
+function deleteStockItem(itemId, bind) {
+     if (!confirm('Вы действительно хотите удалить эту позицию?'))
+         return;
+    const wrapper = $(bind).parent('.callout');
+
+    $.post('delete-stock-item/', {
+        id: itemId
+    }, function(response) {
+        wrapper
+            .toggleClass('callout-info')
+            .toggleClass('callout-warning')
+            .html('<h4 class="center">Позиция была удалена</h4>')
+            .fadeOut(2000)
+    });
+}
