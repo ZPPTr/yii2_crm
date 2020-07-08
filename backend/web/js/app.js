@@ -32,6 +32,14 @@ $(function() {
         });
     });
 
+    $('#add-order-item').on('click', function(e){
+        e.preventDefault();
+        $(this).addClass('hidden');
+        $.get($(this).attr('href'), function(data){
+            $('#add-item-form').html(data);
+        })
+    })
+
 });
 
 function deleteStockItem(itemId, bind) {
@@ -49,3 +57,5 @@ function deleteStockItem(itemId, bind) {
             .fadeOut(2000)
     });
 }
+
+

@@ -41,9 +41,14 @@ $this->params['breadcrumbs'][] = $this->title;
             /** @var ProductVariants $productVariant */
             $productVariant = $item->product->getVariant($item->variant_id);
 			$variantMeasure = '';
+            $variantId = '';
 			if ($productVariant) {
 				$variantMeasure = ': '.$productVariant->measure_value.' '.$productVariant->measure->title;
+				$variantId = $productVariant->id;
 			}
+
+			$additionalInfo = 'Product ID - '.$item->id;
+			$additionalInfo .= $variantId ? ' | Вариант ID - '.$variantId : '';
     	?>
 	    <div class="callout callout-<?php echo $accentClass ?>">
 		    <?php echo Html::button('×', [
@@ -53,6 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			    'onClick' => 'deleteStockItem('.$item->id.', this)'
 		    ]) ?>
 		    <?php echo Html::tag('h4', $item->product->name.$variantMeasure.' - '.$item->count.'шт.')  ?>
+		    <?php echo Html::tag('p', $additionalInfo) ?>
 	    </div>
     	<?php endforeach; ?>
 		</div><!-- /.card-body -->

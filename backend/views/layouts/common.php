@@ -185,6 +185,27 @@ $bundle = BackendAsset::register($this);
 							],
 						]
 					],
+					[
+						'label' => Yii::t('backend', 'Склады'),
+						'url' => '#',
+						'icon' => '<i class="fa fa-cubes" aria-hidden="true"></i>',
+						'options' => ['class' => 'treeview'],
+						'visible' => Yii::$app->user->can('administrator'),
+						'items' => [
+							[
+								'label' => Yii::t('backend', 'Весь список'),
+								'icon' => '<i class="fa fa-angle-double-right"></i>',
+								'url' => ['/stock/'],
+								'visible' => Yii::$app->user->can('administrator')
+							],
+							[
+								'label' => Yii::t('backend', 'Заказы складов'),
+								'icon' => '<i class="fa fa-angle-double-right"></i>',
+								'url' => ['/stock/orders'],
+								'visible' => Yii::$app->user->can('administrator')
+							],
+						]
+					],
 
 					[
 						'label' => Yii::t('backend', 'Магазин'),

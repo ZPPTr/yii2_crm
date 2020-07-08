@@ -33,7 +33,7 @@ class Bonuses extends Model
 
     public function init()
     {
-        $this->actualPeriod = date('Ym', strtotime('- 5 weeks'));
+        $this->actualPeriod = date('Ym', strtotime('- 1 month'));
         parent::init();
     }
 
@@ -55,7 +55,7 @@ class Bonuses extends Model
                 $model->fullName,
                 $model->number,
                 $model->is_auto_pay ? 'да' : 'нет',
-                $model->agent->city.', '.$model->agent->address,
+                !empty($model->agent) ? $model->agent->city.', '.$model->agent->address : 'не установлено',
                 $model->balance];
         }
 
@@ -188,7 +188,7 @@ class Bonuses extends Model
      */
     private function getMessage()
     {
-        return 'Списание бонусов за ' . date('m.Y', strtotime('- 5 weeks'));
+        return 'Списание бонусов за ' . date('m.Y', strtotime('- 1 month'));
     }
 
     /**
